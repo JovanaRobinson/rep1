@@ -3,6 +3,14 @@ value = input("Welcome to the menu. Options are listed below: \n\t 1. Roll \n\t 
 #print("The value you input is:", value)
 #print(f'it is of type {type(value)}.')
 
+def func1(val):
+    return val**val
+def func2(val):
+    return val**val
+def func3(val):
+    return val**val
+
+
 while True:
     if value.isdigit() == True: # .isdigit()
          value = int(value)
@@ -12,4 +20,12 @@ while True:
 
 #print("The converted value is:", value)
 #print(f'it is of type {type(value)}.')
+
+#compare numeric value to choices available, perform associated function or sequence
+if value == 1:
+    print(func1(value))
+elif value == 2:
+    print(func2(value))
+elif value == 3:
+    print(func3(value))
     
