@@ -1,4 +1,6 @@
 
+import time
+
 value = input("Let's play Simon! Type in 1 and press enter to begin playing:") 
 
 
@@ -11,7 +13,13 @@ while True:
          else:
              break 
     else:
-        value = input("invalid input, please provide an integer:") 
+        value = input("invalid input, please provide an integer:")
+
+if value == 1:
+    print("Four colored buttons light up in a specific pattern. After displaying the pattern, the player must repeat the pattern by clicking the buttons in proper order.")
+    time.sleep(6)
+    print("Let's begin!")
+    time.sleep(1)
 
 
 answer = input("sequence3456")
