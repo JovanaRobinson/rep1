@@ -21,6 +21,17 @@ client.put_pixels(leds)
 #    client.put_pixels(leds)
 #    led = led + 1 #or reverse if you want
 
+led = 0
+while led<60:
+    for rows in range(3):
+        leds[led + rows*60] = (0,0,255)
+    for rows in range(3,6):
+        leds[59-led + rows*60] = (rows*20,50,255)
+    client.put_pixels(leds)
+    time.sleep(.1)
+    led = led + 1
+
+    
 while True:
     for led in range(0, 360, 60):
         leds = [(255,255,255)]*360
