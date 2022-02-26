@@ -176,6 +176,8 @@ def main():
         main()
         
     else:
+        print("Thank you for playing!")
+        sleep(.5)
         exit()
 
 main() #where code starts
