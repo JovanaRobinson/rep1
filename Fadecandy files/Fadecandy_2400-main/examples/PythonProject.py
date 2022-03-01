@@ -4,6 +4,7 @@ def main():
     import time
     from time import sleep
     import sys, time
+    import msvcrt
 
     leds = [(20,20,20)]*360
 
@@ -76,6 +77,23 @@ def main():
             leds[led] = (20,20,20)
             client.put_pixels(leds)
 
+    class TimeoutExpired(Exception):
+        pass
+
+    def input_with_timeout(prompt, timeout, timer=time.monotonic):
+        """Timed input function, taken from https://stackoverflow.com/a/15533404/12892026"""
+        sys.stdout.write(prompt)
+        sys.stdout.flush()
+        endtime = timer() + timeout
+        result = []
+        while timer() < endtime:
+            if msvcrt.kbhit():
+                result.append(msvcrt.getwche()) #XXX can it block on multibyte characters?
+                if result[-1] == '\r':
+                    return ''.join(result[:-1])
+            time.sleep(0.04) # just to yield to other processes/threads
+        raise TimeoutExpired
+
     for char in "Hello there!":
         print(char, end='')
         sys.stdout.flush()
@@ -118,11 +136,16 @@ def main():
     leds = [(20,20,20)]*360
     sleep(.5)
     print(white())
-    answer = input("Enter your sequence")
-    if answer == '2134':
-        print('Correct!')
-    else:
-        print("Incorrect!")
+
+    try:
+        answer = input_with_timeout("Enter your sequence: ", 5) #5 second timer
+    except TimeoutExpired:
+        print('\nSorry, time is up')
+    if answer:
+        if answer == '2134':
+            print('Correct!')
+        else:
+            print("Incorrect!")
         
 
     print(yellow())
