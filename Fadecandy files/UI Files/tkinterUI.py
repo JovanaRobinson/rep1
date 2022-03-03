@@ -1,65 +1,58 @@
+from tkinter import*
+import sys
 import tkinter as tk
-import random
 
-class Simon:
-    def __init__(self, parent):
-        self.parent = parent
-        self.canvas = tk.Canvas(self.parent, height=400, width=400)
-        self.canvas.pack()
-        self.dark = {'r':'darkred', 'g':'darkgreen', 'b':'darkblue', 'y':'darkgoldenrod'}
-        self.light = {'r':'red', 'g':'green', 'b':'blue', 'y':'goldenrod'}
-        self.squares = {'r':self.canvas.create_rectangle(0, 0, 200, 200,
-                                              fill='darkred', outline='darkred'),
-                        'g':self.canvas.create_rectangle(200, 0, 400, 200,
-                                              fill='darkgreen', outline='darkgreen'),
-                        'b':self.canvas.create_rectangle(0, 200, 200, 400,
-                                              fill='darkblue', outline='darkblue'),
-                        'y':self.canvas.create_rectangle(200, 200, 400, 400,
-                                              fill='darkgoldenrod', outline='darkgoldenrod')}
-        self.ids = {v:k for k,v in self.squares.items()}
-        self.high_score = 0
-        self.status = tk.Label(root, text='Let\'s go!')
-        self.status.pack()
-        self.parent.bind('<h>', self.score)
+w=Tk()
+w.geometry('300x500')
+w.configure(bg="#141414")
+w.title('Simon Game')
+
+def bttn(x,y,text,bcolor,fcolor,cmd):
+
+    def on_enter(e):
+        mybutton['background']=bcolor
+        mybutton['foreground']=fcolor
+
+    def on_leave(e):
+        mybutton['background']=fcolor
+        mybutton['foreground']=bcolor
+
+    mybutton=Button(w,width=42,height=2,text=text,
+                    fg=bcolor,
+                    bg=fcolor,
+                    border=0,
+                    activeforeground=fcolor,
+                    activebackground=bcolor,
+                    command=cmd,)
     
-        
-    def animate(self, idx=0):
-        c = self.pattern[idx]
-        self.canvas.itemconfig(self.squares[c], fill=self.light[c], outline=self.light[c])
-        self.parent.after(500, lambda: self.canvas.itemconfig(self.squares[c],
-                               fill=self.dark[c], outline=self.dark[c]))
-        idx += 1
-        if idx < len(self.pattern):
-            self.parent.after(1000, lambda: self.animate(idx))
-        else:
-            self.canvas.bind('<1>', self.select)
+    mybutton.bind("<Enter>", on_enter)
+    mybutton.bind("<Leave>", on_leave)
+
+    mybutton.place(x=x,y=y)
+
+def Y():
+    return
+
+def B():
+    return
+
+def R():
+    return
+
+def G():
+    return
     
-    def select(self, event=None):
-        id = self.canvas.find_withtag("current")[0]
-        color = self.ids[id]
-        self.selections += color
-        self.canvas.itemconfig(id,
-                               fill=self.light[color], outline=self.light[color])
-        self.parent.after(800, lambda: self.canvas.itemconfig(id,
-                               fill=self.dark[color], outline=self.dark[color]))
-        if self.pattern == self.selections:
-            self.canvas.unbind('<1>')
-            self.status.config(text='Right!')
-            self.parent.after(2000, lambda: self.status.config(text=''))
-            self.pattern += random.choice('rgby')
-            self.selections = ''
-            self.high_score = max(self.high_score, len(self.pattern))
-            self.parent.after(2000, self.animate)
-        elif self.pattern[len(self.selections)-1] != color:
-            self.canvas.unbind('<1>')
-            self.status.config(text='Nope!')
-            self.parent.after(2000, lambda: self.status.config(text=''))
-            self.parent.after(2000, self.draw_board)
-            
-    def score(self, event=None):
-        self.status.config(text=self.high_score)
-        self.parent.after(2000, lambda: self.status.config(text=''))
-        
-root = tk.Tk()
-simon = Simon(root)
-root.mainloop()
+label =Label(w,bg='#141414',fg='white',
+             text= "Four colored blocks will \nlight up in a specific pattern. \nAfter displaying the pattern, \nthe player must repeat the pattern \nby clicking the buttons in proper order.").place(x=45,y=0)
+bttn(0,222,"Y E L L O W",'#ffff00',"#141414",Y)
+bttn(0,259,"B L U E",'#25dae9',"#141414",B)
+bttn(0,296,"R E D",'#ff0000',"#141414",R)
+bttn(0,333,"G R E E N",'#00ff00',"#141414",G)
+
+display=Label(w,
+             bg='#141414',fg='white',text = 'Hello there').place(x=135,y=80)
+
+btn_enter = Button(w,
+                   bg='grey',text='Enter').place(x=118,y=450)
+
+w.mainloop()
