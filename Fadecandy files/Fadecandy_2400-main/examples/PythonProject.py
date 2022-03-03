@@ -1,3 +1,5 @@
+from LEDs import * #importing hello animation from LEDs python script
+
 def main():
 
     import opc
@@ -26,7 +28,8 @@ def main():
         for led in range(300,315):
             leds[led] = (255,0,0)
             client.put_pixels(leds)
-            
+
+
     def blue():
         for led in range(15,30):
             leds[led] = (0,0,255)
@@ -40,7 +43,8 @@ def main():
             leds[led] = (0,0,255)
         for led in range(315,330):
             leds[led] = (0,0,255)
-            client.put_pixels(leds)  
+            client.put_pixels(leds)
+
 
     def yellow():
         for led in range(30,45):
@@ -57,6 +61,7 @@ def main():
             leds[led] = (255,255,0)
             client.put_pixels(leds)
 
+
     def green():
         for led in range(45,60):
             leds[led] = (0,255,0)
@@ -70,29 +75,76 @@ def main():
             leds[led] = (0,255,0)
         for led in range(345,360):
             leds[led] = (0,255,0)
-            client.put_pixels(leds) 
+            client.put_pixels(leds)
 
     def white():
         for led in range(0,360):
             leds[led] = (20,20,20)
             client.put_pixels(leds)
 
-    class TimeoutExpired(Exception):
-        pass
+    black = [ (0,0,0) ] * 360
 
-    def input_with_timeout(prompt, timeout, timer=time.monotonic):
-        """Timed input function, taken from https://stackoverflow.com/a/15533404/12892026"""
-        sys.stdout.write(prompt)
-        sys.stdout.flush()
-        endtime = timer() + timeout
-        result = []
-        while timer() < endtime:
-            if msvcrt.kbhit():
-                result.append(msvcrt.getwche()) #XXX can it block on multibyte characters?
-                if result[-1] == '\r':
-                    return ''.join(result[:-1])
-            time.sleep(0.04) # just to yield to other processes/threads
-        raise TimeoutExpired
+    def wrong():
+        leds[87] = (255,0,0)
+        leds[88] = (255,0,0)
+        leds[91] = (255,0,0)
+        leds[92] = (255,0,0)
+        leds[148] = (255,0,0)
+        leds[149] = (255,0,0)
+        leds[150] = (255,0,0)
+        leds[151] = (255,0,0)
+        leds[209] = (255,0,0)
+        leds[210] = (255,0,0)
+        leds[268] = (255,0,0)
+        leds[269] = (255,0,0)
+        leds[270] = (255,0,0)
+        leds[271] = (255,0,0)
+        leds[327] = (255,0,0)
+        leds[328] = (255,0,0)
+        leds[331] = (255,0,0)
+        leds[332] = (255,0,0)
+        client.put_pixels(leds)
+
+    def right():
+        leds[206] = (0,255,0)
+        leds[207] = (0,255,0)
+        leds[267] = (0,255,0)
+        leds[268] = (0,255,0)
+        leds[328] = (0,255,0)
+        leds[209] = (0,255,0)
+        leds[269] = (0,255,0)
+        leds[150] = (0,255,0)
+        leds[210] = (0,255,0)
+        leds[91] = (0,255,0)
+        leds[151] = (0,255,0)
+        leds[32] = (0,255,0)
+        leds[92] = (0,255,0)
+        leds[33] = (0,255,0)
+        leds[146] = (0,255,0)
+        leds[145] = (0,255,0)
+        client.put_pixels(leds)
+
+
+            
+##    class TimeoutExpired(Exception):
+##        pass
+##
+##
+##    def input_with_timeout(prompt, timeout, timer=time.monotonic):
+##        """Timed input function, taken from https://stackoverflow.com/a/15533404/12892026"""
+##        sys.stdout.write(prompt)
+##        sys.stdout.flush()
+##        endtime = timer() + timeout
+##        result = []
+##        while timer() < endtime:
+##            if msvcrt.kbhit():
+##                result.append(msvcrt.getwche()) #XXX can it block on multibyte characters?
+##                if result[-1] == '\r':
+##                    return ''.join(result[:-1])
+##            time.sleep(0.04) # just to yield to other processes/threads
+##        raise TimeoutExpired 
+
+    
 
     for char in "Hello there!":
         print(char, end='')
@@ -119,80 +171,124 @@ def main():
         print("Let's begin!")
         time.sleep(1)
 
-    print(blue())
+    blue()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(red())
+    red()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(yellow())
+    yellow()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(green())
+    green()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(white())
+    white()
 
-    try:
-        answer = input_with_timeout("Enter your sequence: ", 5) #5 second timer
-    except TimeoutExpired:
-        print('\nSorry, time is up')
-    if answer:
-        if answer == '2134':
-            print('Correct!')
-        else:
-            print("Incorrect!")
+    answer = input("Enter your sequence")
+    if answer == '2134':
+        print('Correct!')
+        for i in range(20):
+            right()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
+    else:
+        print("Incorrect!")
+        for i in range(20):
+            wrong()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
+
+    leds = [(20,20,20)]*360
+
+##    correctinput=2134
+##
+##    try:
+##        answer = input("Enter your sequence: ") #5 second timer
+##    
+##    except TimeoutExpired:
+##        print('\nSorry, time is up')
+##    
         
 
-    print(yellow())
+    yellow()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(green())
+    green()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(red())
+    red()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(blue())
+    blue()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(white())
+    white()
+    
     answer = input("Enter your sequence")
     if answer == '3412':
         print('Correct!')
+        for i in range(20):
+            right()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
     else:
         print("Incorrect!")
+        for i in range(20):
+            wrong()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
+            
+    leds = [(20,20,20)]*360
 
-    print(green())
+    green()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(red())
+    red()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(green())
+    green()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(blue())
+    blue()
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.5)
-    print(white())
+    white()
+    
     answer = input("Enter your sequence")
     if answer == '4142':
         print('Correct!')
+        for i in range(20):
+            right()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
     else:
         print("Incorrect!")
+        for i in range(20):
+            wrong()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
+
+    leds = [(20,20,20)]*360
+            
 
     restart=input("Do you wish to play again?").lower()
     if restart == "yes":

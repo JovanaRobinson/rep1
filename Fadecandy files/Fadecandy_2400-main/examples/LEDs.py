@@ -1,3 +1,5 @@
+
+
 import opc
 import time
 from time import sleep
@@ -8,73 +10,11 @@ client = opc.Client('localhost:7890')
 client.put_pixels(leds)
 client.put_pixels(leds)
 
-def red():
-    for led in range(0,15):
-        leds[led] = (255,0,0)
-    for led in range(60,75):
-        leds[led] = (255,0,0)
-    for led in range(120,135):
-        leds[led] = (255,0,0)
-    for led in range(180,195):
-        leds[led] = (255,0,0)
-    for led in range(240,255):
-        leds[led] = (255,0,0)
-    for led in range(300,315):
-        leds[led] = (255,0,0)
-        client.put_pixels(leds)
-
-
-def blue():
-    for led in range(15,30):
-        leds[led] = (0,0,255)
-    for led in range(75,90):
-        leds[led] = (0,0,255)
-    for led in range(135,150):
-        leds[led] = (0,0,255)
-    for led in range(195,210):
-        leds[led] = (0,0,255)
-    for led in range(255,270):
-        leds[led] = (0,0,255)
-    for led in range(315,330):
-        leds[led] = (0,0,255)
-        client.put_pixels(leds)
-
-
-def yellow():
-    for led in range(30,45):
-        leds[led] = (255,255,0)
-    for led in range(90,105):
-        leds[led] = (255,255,0)
-    for led in range(150,165):
-        leds[led] = (255,255,0)
-    for led in range(210,225):
-        leds[led] = (255,255,0)
-    for led in range(270,285):
-        leds[led] = (255,255,0)
-    for led in range(330,345):
-        leds[led] = (255,255,0)
-        client.put_pixels(leds)
-
-
-def green():
-    for led in range(45,60):
-        leds[led] = (0,255,0)
-    for led in range(105,120):
-        leds[led] = (0,255,0)
-    for led in range(165,180):
-        leds[led] = (0,255,0)
-    for led in range(225,240):
-        leds[led] = (0,255,0)
-    for led in range(285,300):
-        leds[led] = (0,255,0)
-    for led in range(345,360):
-        leds[led] = (0,255,0)
-        client.put_pixels(leds)
-
 def white():
     for led in range(0,360):
         leds[led] = (20,20,20)
         client.put_pixels(leds)
+
 
 def first():
     leds[59] = (0,255,255)
@@ -1404,146 +1344,136 @@ def thirtyOne():
     leds[359] = (255,204,153)
     client.put_pixels(leds)
     
+for i in range(2):
+    first()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    second()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    third()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    fourth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    fifth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    sixth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    seventh()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    eighth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    ninth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    tenth()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    eleven()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twelve()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    thirteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    fourteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    fifteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    sixteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    seventeen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    eighteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    nineteen()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twenty()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyOne()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyTwo()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyThree()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyFour()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyFive()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentySix()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentySeven()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyEight()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    twentyNine()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    thirty()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+    thirtyOne()
+    sleep(.05)
+    leds = [(20,20,20)]*360
+    sleep(.05)
+white()    
+
 
     
 
-
     
-    
-##import opc, time, math
-##
-##numLEDs = 360
-##client = opc.Client('localhost:7890')
-##
-##t = 0
-##
-##while True:
-##    t += 0.4
-##    brightness = int(min(1, 1.25 + math.sin(t)) * 255)
-##    frame = [ (brightness, brightness, brightness) ] * numLEDs
-##    client.put_pixels(frame)
-##    time.sleep(0.05)
-first()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-second()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-third()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-fourth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-fifth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-sixth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-seventh()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-eighth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-ninth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-tenth()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-eleven()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twelve()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-thirteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-fourteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-fifteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-sixteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-seventeen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-eighteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-nineteen()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twenty()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyOne()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyTwo()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyThree()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyFour()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyFive()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentySix()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentySeven()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyEight()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-twentyNine()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-thirty()
-sleep(.05)
-leds = [(20,20,20)]*360
-sleep(.05)
-thirtyOne()
-
 
     
