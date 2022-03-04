@@ -2,6 +2,20 @@ from tkinter import*
 import sys
 import tkinter as tk
 
+
+class App(threading.Thread):       #Threading to avoid block to code due to GUI 
+
+    def __init__(self, tk_w):
+        self.w = tk_w
+        threading.Thread.__init__(self)   
+        self.start()
+
+    def run(self):
+        loop_active = True
+        while loop_active:
+            main()
+            
+            
 w=Tk()
 w.geometry('300x500')
 w.configure(bg="#141414")
