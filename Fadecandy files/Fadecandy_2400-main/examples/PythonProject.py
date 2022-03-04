@@ -1,4 +1,110 @@
-from LEDs import * #importing hello animation from LEDs python script
+from tkinter import*
+import sys
+import tkinter as tk
+import threading
+import time
+from time import sleep
+from LEDs import *
+
+class App(threading.Thread):
+
+    def __init__(self, tk_w):
+        self.w = tk_w
+        threading.Thread.__init__(self)
+        self.start()
+
+    def run(self):
+        loop_active = True
+        while loop_active:
+            main()#do something here to start when lets go displays
+
+w=Tk()
+w.geometry('300x500')
+w.configure(bg="#141414")
+w.title('Simon Game')
+
+            
+def bttn(x,y,text,bcolor,fcolor,cmd):
+
+    def on_enter(e):
+        mybutton['background']=bcolor
+        mybutton['foreground']=fcolor
+
+    def on_leave(e):
+        mybutton['background']=fcolor
+        mybutton['foreground']=bcolor
+
+    mybutton=Button(w,width=42,height=2,text=text,
+                    fg=bcolor,
+                    bg=fcolor,
+                    border=0,
+                    activeforeground=fcolor,
+                    activebackground=bcolor,
+                    command=cmd,)
+    
+    mybutton.bind("<Enter>", on_enter)
+    mybutton.bind("<Leave>", on_leave)
+
+    mybutton.place(x=x,y=y)
+    
+list1=[]
+list2=[]
+
+def Y():
+    list1.append('yellow')
+
+def B():
+    list1.append('blue')
+    
+def R():
+    list1.append('red')
+
+def G():
+    list1.append('green')
+
+def yes():
+    if list2==['intro']:
+        replace1()
+    elif list2==['final']:
+        main()
+
+def no():
+    if list2==['intro']:
+        end_anim()
+        quit()
+        
+    elif list2==['final']:
+        replace2()
+
+def replace1():
+    myLabel.config(text= "Let's go!")
+
+def replace2():
+    myLabel.config(text= "Thank you for playing!")
+
+myLabel=tk.Label(w,text="Would you like to play the Simon Game?",bg='#141414',fg='#d3d3d3')
+myLabel.place(x=45,y=140)
+
+bits = ( (80,0,0), (0,255,0) )
+
+def end_anim():
+
+    for i in range(1):
+            # Flash each strip in turn
+            for strip in range(12):
+                    pixels = [ (90,90,90) ] * 512 #change 360 to higher number
+                    for i in range(16):
+                            pixels[strip * 32 + i * 2] = (200,200,200)
+
+                    # Label all strips always
+                    for s in range(12):
+                            pixels[s * 32 + 0] = bits[(s >> 2) & 1]
+                            pixels[s * 32 + 1] = bits[(s >> 1) & 1]
+                            pixels[s * 32 + 2] = bits[(s >> 0) & 1]
+
+                    client.put_pixels(pixels)
+                    time.sleep(0.5)
+    
 
 def main():
 
@@ -6,7 +112,7 @@ def main():
     import time
     from time import sleep
     import sys, time
-    import msvcrt
+    
 
     leds = [(20,20,20)]*360
 
@@ -30,7 +136,7 @@ def main():
             client.put_pixels(leds)
 
 
-    def blue():
+    def blue():   
         for led in range(15,30):
             leds[led] = (0,0,255)
         for led in range(75,90):
@@ -82,94 +188,20 @@ def main():
             leds[led] = (20,20,20)
             client.put_pixels(leds)
 
-    black = [ (0,0,0) ] * 360
-
-    def wrong():
-        leds[87] = (255,0,0)
-        leds[88] = (255,0,0)
-        leds[91] = (255,0,0)
-        leds[92] = (255,0,0)
-        leds[148] = (255,0,0)
-        leds[149] = (255,0,0)
-        leds[150] = (255,0,0)
-        leds[151] = (255,0,0)
-        leds[209] = (255,0,0)
-        leds[210] = (255,0,0)
-        leds[268] = (255,0,0)
-        leds[269] = (255,0,0)
-        leds[270] = (255,0,0)
-        leds[271] = (255,0,0)
-        leds[327] = (255,0,0)
-        leds[328] = (255,0,0)
-        leds[331] = (255,0,0)
-        leds[332] = (255,0,0)
-        client.put_pixels(leds)
-
-    def right():
-        leds[206] = (0,255,0)
-        leds[207] = (0,255,0)
-        leds[267] = (0,255,0)
-        leds[268] = (0,255,0)
-        leds[328] = (0,255,0)
-        leds[209] = (0,255,0)
-        leds[269] = (0,255,0)
-        leds[150] = (0,255,0)
-        leds[210] = (0,255,0)
-        leds[91] = (0,255,0)
-        leds[151] = (0,255,0)
-        leds[32] = (0,255,0)
-        leds[92] = (0,255,0)
-        leds[33] = (0,255,0)
-        leds[146] = (0,255,0)
-        leds[145] = (0,255,0)
-        client.put_pixels(leds)
+    def too_long():
+        for i in range(0,30):
+                pixels = [ (0,0,0) ] * 361
+                pixels[i] = (255,192,203)
+                client.put_pixels(pixels)
+                time.sleep(0.01)
 
 
-            
-##    class TimeoutExpired(Exception):
-##        pass
-##
-##
-##    def input_with_timeout(prompt, timeout, timer=time.monotonic):
-##        """Timed input function, taken from https://stackoverflow.com/a/15533404/12892026"""
-##        sys.stdout.write(prompt)
-##        sys.stdout.flush()
-##        endtime = timer() + timeout
-##        result = []
-##        while timer() < endtime:
-##            if msvcrt.kbhit():
-##                result.append(msvcrt.getwche()) #XXX can it block on multibyte characters?
-##                if result[-1] == '\r':
-##                    return ''.join(result[:-1])
-##            time.sleep(0.04) # just to yield to other processes/threads
-##        raise TimeoutExpired 
+    list2.append('intro')
+    sleep(15)
+    list2.clear()
 
-    
-
-    for char in "Hello there!":
-        print(char, end='')
-        sys.stdout.flush()
-        time.sleep(0.2)
-        
-    value = input("Let's play Simon! Type in 1 and press enter to begin playing:") 
-
-
-    while True:
-        if value.isdigit() == True: 
-             value = int(value)
-             if value > 1 or value < 1: 
-                 value = input("please input the number required.")
-                 continue 
-             else:
-                 break 
-        else:
-            value = input("invalid input, please provide an integer:")
-
-    if value == 1:
-        print("Four colored buttons light up in a specific pattern. After displaying the pattern, the player must repeat the pattern by clicking the buttons in proper order.")
-        time.sleep(6)
-        print("Let's begin!")
-        time.sleep(1)
+    myLabel.config(text= "First Sequence")
+    sleep(1)
 
     blue()
     sleep(.5)
@@ -186,19 +218,28 @@ def main():
     green()
     sleep(.5)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.1)
     white()
 
-    answer = input("Enter your sequence")
-    if answer == '2134':
-        print('Correct!')
+    
+    myLabel.config(text= "Enter your sequence")
+    time.sleep(8) 
+    if list1==['blue','red','yellow','green']:
+        myLabel.config(text= "Correct!")
         for i in range(20):
             right()
             time.sleep(0.05) 
             client.put_pixels(black)
             time.sleep(0.05)
+    elif list1==[]:
+        myLabel.config(text= "Oops, took too long")
+        for i in range(20):
+            too_long()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
     else:
-        print("Incorrect!")
+        myLabel.config(text= "Incorrect!")
         for i in range(20):
             wrong()
             time.sleep(0.05) 
@@ -206,45 +247,53 @@ def main():
             time.sleep(0.05)
 
     leds = [(20,20,20)]*360
+    time.sleep(1)
+    list1.clear()
 
-##    correctinput=2134
-##
-##    try:
-##        answer = input("Enter your sequence: ") #5 second timer
-##    
-##    except TimeoutExpired:
-##        print('\nSorry, time is up')
-##    
-        
+    myLabel.config(text= "Second Sequence")
+    sleep(1)
 
     yellow()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
     green()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
     red()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
     blue()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
+    yellow()
+    sleep(.3)
+    leds = [(20,20,20)]*360
+    sleep(.3)
     white()
     
-    answer = input("Enter your sequence")
-    if answer == '3412':
-        print('Correct!')
+    myLabel.config(text= "Enter your sequence")
+    list1.clear()
+    time.sleep(10)
+    if list1 == ['yellow','green','red','blue','yellow']:
+        myLabel.config(text= "Correct!")
         for i in range(20):
             right()
             time.sleep(0.05) 
             client.put_pixels(black)
             time.sleep(0.05)
+    elif list1==[]:
+        myLabel.config(text= "Oops, took too long")
+        for i in range(20):
+            too_long()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
     else:
-        print("Incorrect!")
+        myLabel.config(text= "Incorrect!")
         for i in range(20):
             wrong()
             time.sleep(0.05) 
@@ -252,35 +301,57 @@ def main():
             time.sleep(0.05)
             
     leds = [(20,20,20)]*360
+    time.sleep(1)
+    list1.clear()
+
+    myLabel.config(text= "Third Sequence")
+    sleep(1)
 
     green()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
     red()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
     sleep(.5)
     green()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
     blue()
-    sleep(.5)
+    sleep(.3)
     leds = [(20,20,20)]*360
-    sleep(.5)
+    sleep(.3)
+    red()
+    sleep(.3)
+    leds = [(20,20,20)]*360
+    sleep(.3)
+    blue()
+    sleep(.3)
+    leds = [(20,20,20)]*360
+    sleep(.3)
     white()
     
-    answer = input("Enter your sequence")
-    if answer == '4142':
-        print('Correct!')
+    myLabel.config(text= "Enter your sequence")
+    list1.clear()
+    time.sleep(12)
+    if list1==['green','red','green','blue','red','blue']:
+        myLabel.config(text= "Correct!")
         for i in range(20):
             right()
             time.sleep(0.05) 
             client.put_pixels(black)
             time.sleep(0.05)
+    elif list1==[]:
+        myLabel.config(text= "Oops, took too long")
+        for i in range(20):
+            too_long()
+            time.sleep(0.05) 
+            client.put_pixels(black)
+            time.sleep(0.05)
     else:
-        print("Incorrect!")
+        myLabel.config(text= "Incorrect!")
         for i in range(20):
             wrong()
             time.sleep(0.05) 
@@ -288,16 +359,30 @@ def main():
             time.sleep(0.05)
 
     leds = [(20,20,20)]*360
+    time.sleep(1)
+    list1.clear()
+
+
+    myLabel.config(text= "Do you wish to play again?")
+    list2.append('final')
             
 
-    restart=input("Do you wish to play again?").lower()
-    if restart == "yes":
-        main()
-        
-    else:
-        print("Thank you for playing!")
-        sleep(.5)
-        exit()
+    list2.clear()
 
-main() #where code starts
-        
+    
+label =Label(w,bg='#141414',fg='white',
+             text= "Four colored blocks will \nlight up in a specific pattern. \nAfter displaying the pattern, \nthe player must repeat the pattern \nby clicking the buttons in proper order.").place(x=45,y=0)
+bttn(0,222,"Y E L L O W",'#ffff00',"#141414",Y)
+bttn(0,259,"B L U E",'#25dae9',"#141414",B)
+bttn(0,296,"R E D",'#ff0000',"#141414",R)
+bttn(0,333,"G R E E N",'#00ff00',"#141414",G)
+
+btn_Yes = Button(w,
+                   bg='grey',text='Yes',command=yes).place(x=90,y=450)
+btn_No = Button(w,
+                   bg='grey',text='No',command=no).place(x=180,y=450)
+
+
+
+APP = App(w)
+w.mainloop()
