@@ -4,9 +4,9 @@ import tkinter as tk
 import threading
 import time
 from time import sleep
-from LEDs import *
+from LEDs import * #This file contains functions for the initial hello animation
 
-class App(threading.Thread):
+class App(threading.Thread): #So that python code can run simultaneously with tkinter
 
     def __init__(self, tk_w):
         self.w = tk_w
@@ -24,7 +24,7 @@ w.configure(bg="#141414")
 w.title('Simon Game')
 
             
-def bttn(x,y,text,bcolor,fcolor,cmd):
+def bttn(x,y,text,bcolor,fcolor,cmd): #colour input buttons, where background and text colour changes depending on where the cursor is 
 
     def on_enter(e):
         mybutton['background']=bcolor
@@ -47,8 +47,8 @@ def bttn(x,y,text,bcolor,fcolor,cmd):
 
     mybutton.place(x=x,y=y)
     
-list1=[]
-list2=[]
+list1=[] #empty list to append responses from yellow,green,red and blue input buttons
+list2=[] #empty list to append responses from yes and no buttons
 
 def Y():
     list1.append('yellow')
@@ -63,9 +63,9 @@ def G():
     list1.append('green')
 
 def yes():
-    if list2==['intro']:
+    if list2==['intro']: #when game starts
         replace1()
-    elif list2==['final']:
+    elif list2==['final']: #when game ends
         main()
 
 def no():
@@ -85,9 +85,9 @@ def replace2():
 myLabel=tk.Label(w,text="Would you like to play the Simon Game?",bg='#141414',fg='#d3d3d3')
 myLabel.place(x=45,y=140)
 
-bits = ( (80,0,0), (0,255,0) )
+bits = ( (80,0,0), (0,255,0) ) #used in end_anim
 
-def end_anim():
+def end_anim():         #final animation displaying diagonal sequence with alternate strips
 
     for i in range(1):
             # Flash each strip in turn
@@ -106,7 +106,7 @@ def end_anim():
                     time.sleep(0.5)
     
 
-def main():
+def main():  #main python code function
 
     import opc
     import time
@@ -133,7 +133,7 @@ def main():
             leds[led] = (255,0,0)
         for led in range(300,315):
             leds[led] = (255,0,0)
-            client.put_pixels(leds)
+            client.put_pixels(leds)   #Red block
 
 
     def blue():   
@@ -149,7 +149,7 @@ def main():
             leds[led] = (0,0,255)
         for led in range(315,330):
             leds[led] = (0,0,255)
-            client.put_pixels(leds)
+            client.put_pixels(leds)  #Blue block
 
 
     def yellow():
@@ -165,7 +165,7 @@ def main():
             leds[led] = (255,255,0)
         for led in range(330,345):
             leds[led] = (255,255,0)
-            client.put_pixels(leds)
+            client.put_pixels(leds)    #Yellow block
 
 
     def green():
@@ -181,12 +181,12 @@ def main():
             leds[led] = (0,255,0)
         for led in range(345,360):
             leds[led] = (0,255,0)
-            client.put_pixels(leds)
+            client.put_pixels(leds)   #Green block
 
     def white():
         for led in range(0,360):
             leds[led] = (20,20,20)
-            client.put_pixels(leds)
+            client.put_pixels(leds)    #light white background
 
             
     def wrong():
@@ -244,7 +244,7 @@ def main():
         leds[311] = (255,0,0)
         leds[314] = (255,0,0)
         leds[315] = (255,0,0)
-        client.put_pixels(leds)
+        client.put_pixels(leds)   #animation for when sequence is incorrect
 
     def right():
         leds[206] = (0,255,0)
@@ -296,21 +296,21 @@ def main():
         leds[16] = (0,255,0)
         leds[129] = (0,255,0)
         leds[128] = (0,255,0)
-        client.put_pixels(leds)
+        client.put_pixels(leds) #animation for when sequence is incorrect
 
     def too_long():
         for i in range(0,30):
                 pixels = [ (0,0,0) ] * 361
                 pixels[i] = (255,192,203)
                 client.put_pixels(pixels)
-                time.sleep(0.01)
+                time.sleep(0.01)              #animation for when input takes too long
 
 
     list2.append('intro')
     sleep(15)
     list2.clear()
 
-    myLabel.config(text= "First Sequence")
+    myLabel.config(text= "First Sequence") #.config replaces text in label
     sleep(1)
 
     blue()
@@ -329,8 +329,8 @@ def main():
     sleep(.5)
     leds = [(20,20,20)]*360
     sleep(.1)
-    white()
-
+    white()                            # first sequence
+   
     
     myLabel.config(text= "Enter your sequence")
     time.sleep(8) 
@@ -358,7 +358,7 @@ def main():
 
     leds = [(20,20,20)]*360
     time.sleep(1)
-    list1.clear()
+    list1.clear() #clears list after sequence is done
 
     myLabel.config(text= "Second Sequence")
     sleep(1)

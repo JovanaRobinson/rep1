@@ -12,7 +12,7 @@ client.put_pixels(leds)
             
 
 
-black = [ (0,0,0) ] * 360
+black = [ (0,0,0) ] * 360 #used in right and wrong animations
 
 
 def white():
@@ -20,7 +20,8 @@ def white():
         leds[led] = (20,20,20)
         client.put_pixels(leds)
 
-
+#all functions below are for the hello animation
+        
 def first():
     leds[59] = (0,255,255)
     leds[119] = (0,255,255)
