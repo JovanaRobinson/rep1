@@ -3,6 +3,7 @@
  
  The Simon game is the game of lights in which players must repeat random sequences of lights by pressing the colored pads in the correct order.
  I've displayed my colour sequences and other animations using Fadecandy and used Tkinter as my GUI.
+ *commits from exercises done in class also available*
  
  Version 1:
  Designed the Red,Blue,Green and Yellow colour blocks in a separate file. 
