@@ -51,7 +51,7 @@ list1=[] #empty list to append responses from yellow,green,red and blue input bu
 list2=[] #empty list to append responses from yes and no buttons
 
 def Y():
-    list1.append('yellow')
+    list1.append('yellow') #appends colour into list when button is pressed 
 
 def B():
     list1.append('blue')
@@ -72,9 +72,11 @@ def no():
     if list2==['intro']:
         end_anim()
         quit()
-        
+
     elif list2==['final']:
+        end_anim()
         replace2()
+        quit()
 
 def replace1():
     myLabel.config(text= "Let's go!")
@@ -114,7 +116,7 @@ def main():  #main python code function
     import sys, time
     
 
-    leds = [(20,20,20)]*360
+    leds = [(20,20,20)]*360 
 
     client = opc.Client('localhost:7890')
     client.put_pixels(leds)
@@ -310,7 +312,7 @@ def main():  #main python code function
     sleep(15)
     list2.clear()
 
-    myLabel.config(text= "First Sequence") #.config replaces text in label
+    myLabel.config(text= "First Sequence") #.config replaces text in myLabel
     sleep(1)
 
     blue()
@@ -331,7 +333,7 @@ def main():  #main python code function
     sleep(.1)
     white()                            # first sequence
    
-    
+    list1.clear() #this clear function is to make sure even if there were previous random inputs, it would not affect the inputs for the sequence
     myLabel.config(text= "Enter your sequence")
     time.sleep(8) 
     if list1==['blue','red','yellow','green']:
@@ -341,7 +343,7 @@ def main():  #main python code function
             time.sleep(0.05) 
             client.put_pixels(black)
             time.sleep(0.05)
-    elif list1==[]:
+    elif list1==[]: #if list is still empty after the given time
         myLabel.config(text= "Oops, took too long")
         for i in range(20):
             too_long()
@@ -349,14 +351,14 @@ def main():  #main python code function
             client.put_pixels(black)
             time.sleep(0.05)
     else:
-        myLabel.config(text= "Incorrect!")
+        myLabel.config(text= "Incorrect!") 
         for i in range(20):
             wrong()
             time.sleep(0.05) 
             client.put_pixels(black)
             time.sleep(0.05)
 
-    leds = [(20,20,20)]*360
+    leds = [(20,20,20)]*360 
     time.sleep(1)
     list1.clear() #clears list after sequence is done
 
@@ -383,7 +385,7 @@ def main():  #main python code function
     sleep(.3)
     leds = [(20,20,20)]*360
     sleep(.3)
-    white()
+    white()                               #second sequence
     
     myLabel.config(text= "Enter your sequence")
     list1.clear()
@@ -441,7 +443,7 @@ def main():  #main python code function
     sleep(.3)
     leds = [(20,20,20)]*360
     sleep(.3)
-    white()
+    white()                           #third sequence
     
     myLabel.config(text= "Enter your sequence")
     list1.clear()
@@ -479,7 +481,7 @@ def main():  #main python code function
 
     list2.clear()
 
-    
+   #label below used to display description of game     
 label =Label(w,bg='#141414',fg='white',
              text= "Four colored blocks will \nlight up in a specific pattern. \nAfter displaying the pattern, \nthe player must repeat the pattern \nby clicking the buttons in proper order.").place(x=45,y=0)
 bttn(0,222,"Y E L L O W",'#ffff00',"#141414",Y)
